@@ -27,7 +27,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active"
-                        href="{ route('event.register') }}">{{ '開催する' }}</a>
+                        href="{{ route('event.register') }}">{{ '開催する' }}</a>
                 </li>
             </ul>
         </div>
