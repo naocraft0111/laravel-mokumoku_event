@@ -19,11 +19,21 @@ class EventController extends Controller
     /**
      * イベント一覧画面
      */
-    public function index()
+    public function index(Request $request)
     {
-        // eventsテーブルにあるデータを全て取得
-        $events = $this->event->allEventsData();
-        // dd($events);
+        // 検索したキーワード
+        $word = $request->search;
+
+        // 検索フォームに文字が入力されているか判定
+        if (!is_null($word)) {
+            // $workの値がある→nullではない→検索フォームに何かしら入力されている
+            $events = $this->event->searchWord($word);
+        } else {
+            // $wordの値がない→null→検索フォームに何も入力されていない、つまり初期状態
+            // eventsテーブルにあるデータを全て取得
+            $events = $this->event->allEventsData();
+        }
+
         return view('event.index', compact('events'));
     }
 

@@ -1,3 +1,11 @@
+<style>
+    #search-form {
+        margin: 0 0 0 auto;
+    }
+    #search-input {
+        width: 300px;
+    }
+</style>
 {{-- ナビゲーション --}}
 <nav class="navbar navbar-expand-lg navbar-light bg-light container">
     <div class="container-fluid">
@@ -30,6 +38,11 @@
                         href="{{ route('event.register') }}">{{ '開催する' }}</a>
                 </li>
             </ul>
+            {{-- 検索フォーム --}}
+            <form class="form-inline" id="search-form" method="GET" action="{{ route('event.index') }}">
+                <input class="form-control mr-sm-2" id="search-input" type="search" name="search" placeholder="キーワードを入力" value="{{ isset($word) ? $word : '' }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+            </form>
         </div>
     </div>
 </nav>
