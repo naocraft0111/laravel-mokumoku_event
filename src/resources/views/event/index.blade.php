@@ -2,6 +2,7 @@
 
 @section('content')
 @php
+    // 文字数制限処理
     function trimword($str, $length=100, $append="...") {
         if (mb_strlen($str) > $length) {
         $str = mb_substr($str, 0, $length, 'UTF-8');
