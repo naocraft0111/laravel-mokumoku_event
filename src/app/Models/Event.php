@@ -10,6 +10,12 @@ class Event extends Model
 {
     use HasFactory;
 
+    // モデルに関連づけるテーブル
+    protected $table = 'events';
+
+    // テーブルに関連づける主キー
+    protected $primaryKey = 'event_id';
+
     // 登録・編集ができるカラム
     protected $fillable = [
         'category_id',
@@ -55,5 +61,16 @@ class Event extends Model
             'contents' => $request->contents,
             'entry_fee' => $request->entry_fee,
         ]);
+    }
+
+    /**
+     * idをもとにeventsテーブルから特定のレコードに絞り込む
+     *
+     * @param int $id イベントID
+     * @return Event
+     */
+    public function findEventByEventId($id)
+    {
+        return $this->find($id);
     }
 }

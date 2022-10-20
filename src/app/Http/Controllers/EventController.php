@@ -23,7 +23,7 @@ class EventController extends Controller
     {
         // eventsテーブルにあるデータを全て取得
         $events = $this->event->allEventsData();
-
+        // dd($events);
         return view('event.index', compact('events'));
     }
 
@@ -48,7 +48,7 @@ class EventController extends Controller
             $insertEvent = $this->event->insertEventData($request);
             // 処理に成功したらコミット
             DB::commit();
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             // Throwableで全異常を検知
             // 処理に失敗したらロールバック
             DB::rollback();
@@ -61,5 +61,43 @@ class EventController extends Controller
 
         return redirect()->route('event.index')
             ->with('success', 'もくもく会の登録に成功しました。');
+    }
+
+    /**
+     * 詳細画面
+     */
+    public function show($id)
+    {
+        // $id(event_id)をもとに、eventsテーブルの特定のレコードに絞り込む
+        $event = $this->event->findEventByEventId($id);
+
+        // 指定の日付を△△/××に変換する
+        $date = date('m/d', strtotime($event->date));
+        // 指定日の曜日を取得する
+        $getWeek = date('w', strtotime($event->date));
+        // 配列を使用し、要素順に(日:0〜土:6)を設定する
+        $week = [
+            '日', //0
+            '月', //1
+            '火', //2
+            '水', //3
+            '木', //4
+            '金', //5
+            '土', //6
+        ];
+
+        // 開始時間 ex.15:00:00→15:00に変換。秒部分を切り捨て
+        $start_time = substr($event->start_time, 0, -3);
+        // 終了時間 ex.19:00:00→19:00に変換。秒部分を切り捨て
+        $end_time = substr($event->end_time, 0, -3);
+
+        return view('event.show', compact(
+            'event',
+            'date',
+            'getWeek',
+            'week',
+            'start_time',
+            'end_time',
+        ));
     }
 }
