@@ -73,4 +73,20 @@ class Event extends Model
     {
         return $this->find($id);
     }
+
+    /**
+     * 更新処理
+     */
+    public function updatedEventDate($request, $event)
+    {
+        return $event->fill([
+            'category_id' => $request->category_id,
+            'title' => $request->title,
+            'date' => $request->date,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'entry_fee' => $request->entry_fee,
+            'contents' => $request->contents,
+        ])->save();
+    }
 }

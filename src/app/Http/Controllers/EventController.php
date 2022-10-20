@@ -108,10 +108,38 @@ class EventController extends Controller
     {
         // カテゴリー一覧を取得
         $categories = $this->category->allCategoriesData();
-        
+
         // $id(event_id)をもとに、編集画面に表示するもくもく会のデータを1件取得
         $event = $this->event->findEventByEventId($id);
 
         return view('event.edit', compact('categories','event'));
+    }
+
+    public function update(EventRequest $request)
+    {
+        // イベントIDを取得
+        $eventId = $request->event_id;
+        // $id(event_id)をもとに、編集画面に表示するもくもく会のデータを1件取得
+        $event = $this->event->findEventByEventId($eventId);
+
+        try {
+            // トランザクション開始
+            DB::beginTransaction();
+            // 更新対象のレコードの更新処理を実行
+            $isUpdated = $this->event->updatedEventDate($request, $event);
+            // 処理に成功したらコミット
+            DB::commit();
+        } catch (\Throwable $e) {
+            // Throwableで全異常を検知
+            // 処理に失敗したらロールバック
+            DB::rollback();
+            // エラーログ
+            \Log::error($e);
+            // 登録処理失敗時にリダイレクト
+            return redirect()->route('event.index')
+                ->with('error', 'もくもく会の登録に失敗しました。');
+        }
+        return redirect()->route('event.index')
+            ->with('success', 'もくもく会の登録に成功しました。');
     }
 }
