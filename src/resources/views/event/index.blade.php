@@ -1,18 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@php
-    // 文字数制限処理
-    function trimword($str, $length=100, $append="...") {
-        if (mb_strlen($str) > $length) {
-        $str = mb_substr($str, 0, $length, 'UTF-8');
-
-        return $str .  $append;
-    }
-
-    return $str;
-}
-@endphp
     <style>
         #mokumoku-lists {
             filter: drop-shadow(2px 4px 6px #000);
