@@ -89,4 +89,12 @@ class Event extends Model
             'contents' => $request->contents,
         ])->save();
     }
+
+    /**
+     * 削除処理
+     */
+    public function deleteEventData($id)
+    {
+        return $this->destroy($id);
+    }
 }
