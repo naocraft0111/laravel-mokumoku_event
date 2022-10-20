@@ -41,7 +41,7 @@
                 <div class="content-wrapper d-flex">
                     <div class="content-filed">
                         <p class="card-text text-left">
-                            <?php echo trimword($event->contents); ?>
+                            {{ Str::limit($event->contents, 100) }}
                         </p>
                     </div>
                     <div class="btn-filed ml-auto">
