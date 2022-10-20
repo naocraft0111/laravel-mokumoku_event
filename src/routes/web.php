@@ -23,6 +23,10 @@ Route::get('/', [EventController::class, 'index'])
 Route::get('/event/register', [EventController::class, 'register'])
     ->name('event.register');
 
+// もくもく会登録処理
+Route::post('/event/create', [EventController::class, 'create'])
+    ->name('event.create');
+
 // カテゴリー一覧画面
 Route::get('/category/index', [CategoryController::class, 'index'])
     ->name('category.index');

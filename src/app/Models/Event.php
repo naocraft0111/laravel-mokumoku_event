@@ -17,7 +17,7 @@ class Event extends Model
         'date',
         'start_time',
         'end_time',
-        'content',
+        'contents',
         'entry_fee',
     ];
 
@@ -38,5 +38,22 @@ class Event extends Model
     public function allEventsData()
     {
         return $this->get();
+    }
+
+    /**
+     * 登録処理 eventsテーブルにデータをinsert
+     *
+     */
+    public function insertEventData($request)
+    {
+        return $this->create([
+            'category_id' => $request->category_id,
+            'title' => $request->title,
+            'date' => $request->date,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+            'contents' => $request->contents,
+            'entry_fee' => $request->entry_fee,
+        ]);
     }
 }
