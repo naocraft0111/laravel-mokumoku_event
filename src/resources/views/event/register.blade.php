@@ -17,7 +17,7 @@
         {{-- カテゴリープルダウン --}}
         <div class="form-group w-50">
             <label for="category-id">{{ 'カテゴリー' }}<span class="badge badge-danger ml-2">{{ '必須' }}</span></label>
-            <select class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category-id" name=category_id>
+            <select class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category-id" name="category_id">
                 @foreach ($categories as $category)
                 <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
                 @endforeach
