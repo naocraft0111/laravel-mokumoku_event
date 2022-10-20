@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    function trimword($str, $length=100, $append="...") {
+        if (mb_strlen($str) > $length) {
+        $str = mb_substr($str, 0, $length, 'UTF-8');
+
+        return $str .  $append;
+    }
+
+    return $str;
+}
+@endphp
     <style>
         #mokumoku-lists {
             filter: drop-shadow(2px 4px 6px #000);
@@ -29,7 +40,7 @@
                 <div class="content-wrapper d-flex">
                     <div class="content-filed">
                         <p class="card-text text-left">
-                            {{ mb_substr($event->contents, 0, 100, 'UTF-8') . '...' }}
+                            <?php echo trimword($event->contents); ?>
                         </p>
                     </div>
                     <div class="btn-filed ml-auto">
